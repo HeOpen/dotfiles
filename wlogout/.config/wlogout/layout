@@ -1,0 +1,24 @@
+{
+    "label" : "lock",
+    "action" : "hyprlock",
+    "text" : "Блокировка",
+    "keybind" : "l"
+}
+{
+    "label" : "logout",
+    "action" : "hyprshutdown",
+    "text" : "Выход",
+    "keybind" : "e"
+}
+{
+    "label" : "reboot",
+    "action" : "systemctl reboot",
+    "text" : "Перезагрузка",
+    "keybind" : "r"
+}
+{
+    "label" : "shutdown",
+    "action" : "systemctl poweroff",
+    "text" : "Выключение",
+    "keybind" : "s"
+}

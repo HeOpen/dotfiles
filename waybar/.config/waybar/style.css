@@ -1,0 +1,54 @@
+/*
+//  /$$      /$$                     /$$                          
+// | $$  /$ | $$                    | $$                          
+// | $$ /$$$| $$  /$$$$$$  /$$   /$$| $$$$$$$   /$$$$$$   /$$$$$$ 
+// | $$/$$ $$ $$ |____  $$| $$  | $$| $$__  $$ |____  $$ /$$__  $$
+// | $$$$_  $$$$  /$$$$$$$| $$  | $$| $$  \ $$  /$$$$$$$| $$  \__/
+// | $$$/ \  $$$ /$$__  $$| $$  | $$| $$  | $$ /$$__  $$| $$      
+// | $$/   \  $$|  $$$$$$$|  $$$$$$$| $$$$$$$/|  $$$$$$$| $$      
+// |__/     \__/ \_______/ \____  $$|_______/  \_______/|__/      
+//                         /$$  | $$                              
+//                        |  $$$$$$/                              
+//                         \______/                               
+*/
+* {
+    /*Font for the icons*/
+    font-family: JetBrainsMono Nerd Font;
+    font-size: 12px;
+}
+
+/*Font color*/
+window#waybar {
+    background: rgba(0, 0, 0, 0);
+    color: #ffffff;
+    border-radius:0px;
+}
+
+/*Workspace size */
+#workspaces {
+    padding: 0px 10px;
+}
+/*Color, size and filling of workspaces*/
+#workspaces button {
+    padding: 0 1px;
+    background-color: transparent;
+    border: 0px solid #ff0000;
+    margin: 2px 0px;
+    color: #ffffff;
+}
+/*Mouse hover*/
+#workspaces button:hover {
+    background: rgba(0, 255, 255, 0.902);
+}
+
+/*Modules*/
+/*Module colors*/
+.modules-left,
+.modules-center,
+.modules-right
+{
+    background: rgba(0, 0, 0, 0.300);
+    margin: 5px 10px;
+    padding: 0 5px;
+    border-radius: 15px;
+}

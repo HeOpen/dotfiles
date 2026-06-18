@@ -1,0 +1,133 @@
+//  /$$      /$$                     /$$                          
+// | $$  /$ | $$                    | $$                          
+// | $$ /$$$| $$  /$$$$$$  /$$   /$$| $$$$$$$   /$$$$$$   /$$$$$$ 
+// | $$/$$ $$ $$ |____  $$| $$  | $$| $$__  $$ |____  $$ /$$__  $$
+// | $$$$_  $$$$  /$$$$$$$| $$  | $$| $$  \ $$  /$$$$$$$| $$  \__/
+// | $$$/ \  $$$ /$$__  $$| $$  | $$| $$  | $$ /$$__  $$| $$      
+// | $$/   \  $$|  $$$$$$$|  $$$$$$$| $$$$$$$/|  $$$$$$$| $$      
+// |__/     \__/ \_______/ \____  $$|_______/  \_______/|__/      
+//                         /$$  | $$                              
+//                        |  $$$$$$/                              
+//                         \______/                               
+{
+    "layer": "top", // Waybar position
+    "spacing": 8, // Space between modules
+
+    "modules-left": ["hyprland/workspaces" ],
+    "modules-center": [ "hyprland/window"],
+    "modules-right": 
+    ["hyprland/language","network","pulseaudio",
+    "battery","bluetooth","backlight","clock","custom/power"],
+
+    //Clock and calendar
+    "clock": {
+        "format": "   {:%R\n%d.%m.%Y}",
+        "tooltip-format": "<tt><small>{calendar}</small></tt>",
+        "calendar": {
+                    "mode"          : "year",
+                    "mode-mon-col"  : 3,
+                    "weeks-pos"     : "right",
+                    "on-scroll"     : 1,
+                    "format": {
+                              "months":     "<span color='#ffead3'><b>{}</b></span>",
+                              "days":       "<span color='#ecc6d9'><b>{}</b></span>",
+                              "weeks":      "<span color='#99ffdd'><b>W{}</b></span>",
+                              "weekdays":   "<span color='#ffcc66'><b>{}</b></span>",
+                              "today":      "<span color='#ff6699'><b><u>{}</u></b></span>"
+                              }
+                    },
+        "actions":  {
+                    "on-click-right": "mode",
+                    "on-scroll-up": "tz_up",
+                    "on-scroll-down": "tz_down",
+                    "on-scroll-up": "shift_up",
+                    "on-scroll-down": "shift_down"
+                    }
+    },
+    //Battery
+   "battery": {
+        "states": {
+            "good": 99,
+            "warning": 50,
+            "critical": 20
+        },
+        //"bat":"BAT1",
+        "format": "{icon}{capacity}%",
+        "format-charging": " {capacity}%",
+        "format-plugged": "󰢟 {capacity}%",
+        "format-discharging": "󱟤 {capacity}%",
+        "format-alt": "{icon} {time}",
+        "format-icons": ["󰢜", "󰂆", "󰢝", "󰂊", "󰂅 "]
+    },
+    //Sound
+    "pulseaudio": {
+        "format": "{icon}{volume}%",
+        "format-bluetooth": "{icon}{volume}%",
+        "format-muted": "󰝟 ",
+        "format-icons": {
+            "headphone": " ",
+            "hands-free": " ",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": [" ", " "]
+        },
+        "scroll-step": 1,
+        "on-click": "pavucontrol",
+        "on-click-right": "pactl set-sink-mute @DEFAULT_SINK@ toggle"
+    },
+    //Bluetooth
+    "bluetooth": {
+    "format": " ",
+    "tooltip": "Bluetooth",
+    "on-click": "blueman-manager",
+    "return-type": "json"
+    },
+    //Wifi
+    "network": {
+            "format-wifi":"  ",
+            "format-ethernet":"󰈀 ",
+            "format-disconnected": " ",
+            "tooltip-format-disconnected": "Desconectado",
+            "tooltip-format-wifi": "{essid} ({signalStrength}%)  ",
+            "tooltip-format-ethernet": "{ifname} 🖧 ",
+            "on-click": "kitty nmtui"
+        },
+    //Brightness
+    "backlight": {
+        "device": "intel_backlight",
+        "format": "{icon}",
+        "format-alt-click": "click-right",
+        "format-alt": "{icon} {percent}%",
+        "format-icons": ["󰃞 ", "󰃟 ", "󰃠 "],
+        "on-scroll-up": "brightnessctl set +5%",
+        "on-scroll-down": "brightnessctl set 5%-",
+        "tooltip": false
+    },
+    //Power
+    "custom/power": {
+        "format": " ",
+        "on-click": "wlogout --buttons-per-row 4 --margin-top 300 --margin-bottom 300",
+        "tooltip": false
+    },
+    //Workspaces
+    "hyprland/workspaces": {
+            "format": "{icon}",
+            "format-icons": {
+                "active": " ",
+                "default": " ",
+                "empty": ""
+            },
+            "persistent-workspaces": {
+                "*": [ 1,2,3,4]
+            }
+        },
+    //Keyboard layout
+    //Alt+Shift to switch between keyboard layouts
+    "hyprland/language": {
+    "format": "{}",
+    "format-en": "EN",
+    "format-es": "ES"
+}
+}
