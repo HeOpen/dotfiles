@@ -10,25 +10,40 @@
 //                        |  $$$$$$/
 //                         \______/
 {
-  "layer": "top", // Waybar position
-  "spacing": 8, // Space between modules
+  "reload_style_on_change": true,
+  "layer": "top", // Waybar position (top|bottom|left|right)
+  "spacing": 10, // Space between modules
+  "mode": "dock",
+  "height": 0,
+  "width": 0,
 
-  "modules-left": ["hyprland/workspaces"],
-  "modules-center": ["hyprland/window"],
+  "margin-top": 5,
+  "margin-left": 10,
+  "margin-right": 10,
+
+  "modules-left": [
+    "custom/fast-fetch",
+    "hyprland/workspaces",
+    "hyprland/window",
+  ],
+  "modules-center": ["clock"],
   "modules-right": [
+    "cpu",
+    "memory",
+    "disk",
+    "temperature",
     "hyprland/language",
     "network",
     "pulseaudio",
     "battery",
     "bluetooth",
     "backlight",
-    "clock",
     "custom/power",
   ],
 
   //Clock and calendar
   "clock": {
-    "format": "   {:%R\n%d.%m.%Y}",
+    "format": "{:%A %R\n  %d.%m.%Y}",
     "tooltip-format": "<tt><small>{calendar}</small></tt>",
     "calendar": {
       "mode": "year",
@@ -68,9 +83,9 @@
   },
   //Sound
   "pulseaudio": {
-    "format": "{icon}{volume}%",
+    "format": "{icon}{volume}% {format_source} ",
     "format-bluetooth": "{icon}{volume}%",
-    "format-muted": "󰝟 ",
+    "format-muted": " ",
     "format-icons": {
       "headphone": " ",
       "hands-free": " ",
@@ -78,15 +93,18 @@
       "phone": "",
       "portable": "",
       "car": "",
-      "default": [" ", " "],
+      "default": [" ", "  "],
     },
+    "format-source": " {volume}%",
+    "format-source-muted": "",
     "scroll-step": 1,
     "on-click": "pavucontrol",
     "on-click-right": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
   },
   //Bluetooth
   "bluetooth": {
-    "format": " ",
+    "format-on": " ",
+    "format-disabled": "󰂯",
     "tooltip": "Bluetooth",
     "on-click": "blueman-manager",
     "return-type": "json",
@@ -115,19 +133,19 @@
   //Power
   "custom/power": {
     "format": " ",
-    "on-click": "wlogout --buttons-per-row 4 --margin-top 300 --margin-bottom 300",
+    "on-click": "wlogout --buttons-per-row 4 --margin-top 500 --margin-bottom 500 --margin-left 500 --margin-right 500 ",
     "tooltip": false,
   },
   //Workspaces
   "hyprland/workspaces": {
     "format": "{icon}",
     "format-icons": {
-      "active": " ",
+      "active": "",
       "default": " ",
       "empty": "",
     },
     "persistent-workspaces": {
-      "*": [1, 2, 3, 4],
+      "*": [1, 2, 3, 4, 5, 6],
     },
   },
   //Keyboard layout
@@ -136,5 +154,35 @@
     "format": "{}",
     "format-en": "EN",
     "format-es": "ES",
+    "tooltip": true,
+    "tooltip-format": "Alt + Shift",
+  },
+  //Power
+  "custom/fast-fetch": {
+    "format": "󰣇 ",
+    "on-click": "vicinae toggle",
+    "on-click-right": "kitty --hold fastfetch",
+    "tooltip": false,
+  },
+  "cpu": {
+    "format": "{usage}%  ",
+    "tooltip": true,
+    "tooltip-format": "Uso de CPU: {usage}%\nNúcleos: {cores}",
+  },
+  "memory": {
+    "format": "{}%  ",
+    "tooltip": true,
+    "tooltip-format": "RAM en uso: {used} / {total} ({percentage}%)",
+  },
+  "disk": {
+    "format": "{percentage_free}%  ",
+    "tooltip": true,
+    "tooltip-format": "Espacio libre: {free} / {total} ({percentage_free}%)",
+  },
+  "temperature": {
+    "format": "{temperatureC}°C {icon}",
+    "tooltip": true,
+    "tooltip-format": "Temperatura actual: {temperatureC}°C\n > 80°C = 󰚌",
+    "format-icons": [""],
   },
 }

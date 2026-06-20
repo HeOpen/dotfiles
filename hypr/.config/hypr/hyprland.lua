@@ -84,8 +84,8 @@ hl.env("dbus-update-activation-environment --systemd", "WAYLAND_DISPLAY XDG_CURR
 -- Refer to https://wiki.hypr.land/Configuring/Basics/Variables/
 hl.config({
     general = {
-        gaps_in          = 5,
-        gaps_out         = 20,
+        gaps_in          = 3,
+        gaps_out         = 5,
 
         border_size      = 2,
 
@@ -104,12 +104,12 @@ hl.config({
     },
 
     decoration = {
-        rounding         = 10,
-        rounding_power   = 2,
+        rounding         = 1,
+        rounding_power   = 50,
 
         -- Change transparency of focused and unfocused windows
         active_opacity   = 1.0,
-        inactive_opacity = 1.0,
+        inactive_opacity = 0.75,
 
         shadow           = {
             enabled      = true,
@@ -204,8 +204,9 @@ hl.config({
 
 hl.config({
     misc = {
-        force_default_wallpaper = 1,    -- Set to 0 or 1 to disable the anime mascot wallpapers
-        disable_hyprland_logo   = true, -- If true disables the random hyprland logo / anime girl background. :(
+        force_default_wallpaper  = 1,    -- Set to 0 or 1 to disable the anime mascot wallpapers
+        disable_hyprland_logo    = true, -- Random default Hyprland wallpapers
+        disable_splash_rendering = true  -- Splash desktop messages
     },
 })
 
@@ -256,8 +257,10 @@ local mainMod = "SUPER" -- Sets "Windows" key as main modifier
 hl.bind(mainMod .. " + Q", hl.dsp.exec_cmd(terminal))
 hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd(menu))
 hl.bind(mainMod .. " + L", hl.dsp.exec_cmd(sessionLocker))
-
-
+hl.bind(mainMod .. " + ESCAPE", hl.dsp.exec_cmd("killall waybar || waybar"))
+-- Screenshot
+hl.bind(mainMod .. " + SHIFT + S",
+    hl.dsp.exec_cmd("grim -g \"$(slurp)\" /tmp/screenshot.png && swappy -f /tmp/screenshot.png"))
 -------------------------
 ----  DEFAULT BINDS  ----
 -------------------------
@@ -286,8 +289,8 @@ for i = 1, 10 do
 end
 
 -- Example special workspace (scratchpad)
-hl.bind(mainMod .. " + S", hl.dsp.workspace.toggle_special("magic"))
-hl.bind(mainMod .. " + SHIFT + S", hl.dsp.window.move({ workspace = "special:magic" }))
+hl.bind(mainMod .. " + B", hl.dsp.workspace.toggle_special("magic"))
+hl.bind(mainMod .. " + SHIFT + B", hl.dsp.window.move({ workspace = "special:magic" }))
 
 -- Scroll through existing workspaces with mainMod + scroll
 hl.bind(mainMod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
