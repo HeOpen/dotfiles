@@ -63,6 +63,7 @@ hl.env("QT_QPA_PLATFORM", "wayland;xcb")
 hl.env("QT_WAYLAND_DISABLE_WINDOWDECORATION", "1")
 hl.env("ELECTRON_OZONE_PLATFORM_HINT", "auto")
 hl.env("SDL_VIDEODRIVER", "wayland")
+
 -----------------------
 ----- PERMISSIONS -----
 -----------------------
@@ -85,18 +86,22 @@ hl.env("SDL_VIDEODRIVER", "wayland")
 -----------------------
 ---- LOOK AND FEEL ----
 -----------------------
-
 -- Refer to https://wiki.hypr.land/Configuring/Basics/Variables/
+-- Default Hyprland colors in case of an emergency
+local wal = {
+    color2 = "rgba(00ff99ee)",
+    color4 = "rgba(33ccffee)",
+    background = "rgba(101010ee)"
+}
 hl.config({
     general = {
         gaps_in          = 3,
         gaps_out         = 5,
-
         border_size      = 2,
 
         col              = {
-            active_border   = { colors = { "rgba(33ccffee)", "rgba(00ff99ee)" }, angle = 45 },
-            inactive_border = "rgba(595959aa)",
+            active_border   = { colors = { wal.color2, wal.color4 }, angle = 45 },
+            inactive_border = wal.background,
         },
 
         -- Set to true to enable resizing windows by clicking and dragging on borders and gaps
@@ -113,20 +118,20 @@ hl.config({
         rounding_power   = 50,
 
         -- Change transparency of focused and unfocused windows
-        active_opacity   = 0.95,
+        active_opacity   = 0.90,
         inactive_opacity = 0.75,
 
         shadow           = {
             enabled      = true,
-            range        = 4,
-            render_power = 3,
+            range        = 0,
+            render_power = 0,
             color        = 0xee1a1a1a,
         },
 
         blur             = {
             enabled  = true,
-            size     = 3,
-            passes   = 1,
+            size     = 0,
+            passes   = 0,
             vibrancy = 0.1696,
         },
     },
@@ -267,6 +272,13 @@ hl.bind(mainMod .. " + ESCAPE", hl.dsp.exec_cmd("killall waybar || waybar"))
 -- Screenshot
 hl.bind(mainMod .. " + SHIFT + S",
     hl.dsp.exec_cmd("grim -g \"$(slurp)\" /tmp/screenshot.png && swappy -f /tmp/screenshot.png"))
+
+hl.bind(mainMod .. " + SHIFT + W",
+    hl.dsp.exec_cmd("wal --theme ~/.cache/wal/colors.json && killall -SIGUSR2 waybar && makoctl reload"))
+
+hl.bind(mainMod .. " + W",
+    hl.dsp.exec_cmd("kitty ~/.local/bin/change_wallpaper.sh"))
+
 -------------------------
 ----  DEFAULT BINDS  ----
 -------------------------
