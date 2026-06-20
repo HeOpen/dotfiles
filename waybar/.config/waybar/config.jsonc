@@ -24,6 +24,7 @@
   "modules-left": [
     "custom/fast-fetch",
     "hyprland/workspaces",
+    "custom/weather",
     "hyprland/window",
   ],
   "modules-center": ["clock"],
@@ -35,6 +36,7 @@
     "hyprland/language",
     "network",
     "pulseaudio",
+    "custom/microphone",
     "battery",
     "bluetooth",
     "backlight",
@@ -111,11 +113,11 @@
   },
   //Wifi
   "network": {
-    "format-wifi": "  ",
+    "format-wifi": " ",
     "format-ethernet": "󰈀 ",
     "format-disconnected": " ",
     "tooltip-format-disconnected": "Desconectado",
-    "tooltip-format-wifi": "{essid} ({signalStrength}%)  ",
+    "tooltip-format-wifi": "{essid}({signalStrength}%)  ",
     "tooltip-format-ethernet": "{ifname} 🖧 ",
     "on-click": "kitty nmtui",
   },
@@ -159,15 +161,16 @@
   },
   //Power
   "custom/fast-fetch": {
-    "format": "󰣇 ",
+    "format": " 󰣇 ",
     "on-click": "vicinae toggle",
     "on-click-right": "kitty --hold fastfetch",
     "tooltip": false,
   },
   "cpu": {
-    "format": "{usage}%  ",
+    "format": "{usage}%  ",
     "tooltip": true,
     "tooltip-format": "Uso de CPU: {usage}%\nNúcleos: {cores}",
+    "on-click": "kitty --hold btop",
   },
   "memory": {
     "format": "{}%  ",
@@ -184,5 +187,12 @@
     "tooltip": true,
     "tooltip-format": "Temperatura actual: {temperatureC}°C\n > 80°C = 󰚌",
     "format-icons": [""],
+  },
+  "custom/weather": {
+    "exec": "curl 'https://wttr.in/?format=1'",
+    "interval": 3600,
+    "format": "{}",
+    "tooltip": true,
+    "on-click": "kitty --hold curl 'https://wttr.in'",
   },
 }

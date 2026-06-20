@@ -18,11 +18,34 @@
     color: #edf2f4;
 }
 
+#custom-weather,
+#workspaces,
+#custom-fast-fetch,
+#window,
+#clock,
+#cpu,
+#memory,
+#disk,
+#temperature,
+#language,
+#network,
+#pulseaudio,
+#battery,
+#bluetooth,
+#backlight,
+#custom-power {
+    padding: 0 5px;
+    margin: 0 0px;
+    border-bottom: 1px solid transparent;
+    background-color: transparent;
+    border-bottom-color: #00ff00;
+}
+
 /*Font color*/
 window#waybar {
-    background: rgba(11, 19, 43, 1);
+    background: rgba(25, 25, 25, 0.8);
     color: #ffffff;
-    border-radius: 0 10px 10px 0;
+    border-radius: 10 10px 10px 10;
 }
 
 /*Workspace size */
@@ -31,7 +54,7 @@ window#waybar {
 }
 /*Color, size and filling of workspaces*/
 #workspaces button {
-    padding: 0 1px;
+    padding: 0 3px;
     background-color: transparent;
     border: 0px solid #000000;
     margin: 0px 0px;
@@ -47,11 +70,14 @@ window#waybar {
 .modules-left,
 .modules-center,
 .modules-right {
-    background: rgba(28, 37, 65, 1);
-    margin: 0px 5px;
+    background: rgba(0, 0, 0, 0);
+    margin: 0px 0px;
     padding: 0px 10px;
     border-radius: 5px;
 }
 #custom-fast-fetch {
     font-size: 20px;
+}
+#custom-weather {
+    font-size: 13px;
 }

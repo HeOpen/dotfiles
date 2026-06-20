@@ -38,6 +38,8 @@ local sessionLocker = "hyprlock"
 hl.on("hyprland.start", function()
     hl.exec_cmd("waybar")
     hl.exec_cmd("vicinae server")
+    hl.exec_cmd("awww-daemon")
+    hl.exec_cmd("mako")
 end)
 
 -------------------------------
@@ -56,8 +58,11 @@ hl.env("__GLX_VENDOR_LIBRARY_NAME", "nvidia")
 hl.env("LIBVA_DRIVER_NAME", "nvidia")
 hl.env("systemctl --user import-environment", "WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
 hl.env("dbus-update-activation-environment --systemd", "WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
-
-
+hl.env("GDK_BACKEND", "wayland,x11,*")
+hl.env("QT_QPA_PLATFORM", "wayland;xcb")
+hl.env("QT_WAYLAND_DISABLE_WINDOWDECORATION", "1")
+hl.env("ELECTRON_OZONE_PLATFORM_HINT", "auto")
+hl.env("SDL_VIDEODRIVER", "wayland")
 -----------------------
 ----- PERMISSIONS -----
 -----------------------
@@ -108,7 +113,7 @@ hl.config({
         rounding_power   = 50,
 
         -- Change transparency of focused and unfocused windows
-        active_opacity   = 1.0,
+        active_opacity   = 0.95,
         inactive_opacity = 0.75,
 
         shadow           = {
@@ -229,6 +234,7 @@ hl.config({
 
         touchpad     = {
             natural_scroll = false,
+            disable_while_typing = true,
         },
     },
 })
