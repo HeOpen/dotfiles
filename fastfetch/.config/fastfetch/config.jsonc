@@ -1,0 +1,138 @@
+{
+ "modules": [
+        {
+            "type": "custom",
+            "format": "┌────────────────────── Hardware ──────────────────────┐",
+            "outputColor": "green"
+        },
+        {
+            "type": "title",
+            "key": "",
+            "keyColor": "green",
+            "userColor": "green"
+        },
+        {
+            "type": "host",
+            "key": " Machine",
+            "keyColor": "green"
+        },
+        {
+            "type": "cpu",
+            "key": "│ ├ CPU",
+            "showPeCoreCount": true,
+            "keyColor": "green"
+        },
+        {
+            "type": "gpu",
+            "key": "│ ├ 󰍛 GPU",
+            "keyColor": "green"
+        },
+        {
+            "type": "memory",
+            "key": "└ └  RAM",
+            "keyColor": "green"
+        },
+        {
+            "type": "display",
+            "key": "󰹑 Monitors",
+            "compactType": "original-with-refresh-rate",
+            "keyColor": "green"
+        },
+        {
+            "type": "custom",
+            "format": "└──────────────────────────────────────────────────────┘",
+            "outputColor": "green"
+        },
+        {
+            "type": "custom",
+            "format": "┌────────────────────── Software ──────────────────────┐",
+            "outputColor": "yellow"
+        },
+        {
+            "type": "os",
+            "key": " OS",
+            "keyColor": "yellow"
+        },
+        {
+            "type": "kernel",
+            "key": "│ ├  Kernel",
+            "keyColor": "yellow"
+        },
+        {
+            "type": "packages",
+            "key": "│ ├ 󰏖 Packages",
+            "keyColor": "yellow"
+        },
+        {
+            "type": "terminal",
+            "key": "│ ├  Terminal",
+            "keyColor": "yellow"
+        },
+        {
+            "type": "shell",
+            "key": "│ ├  Shell",
+            "keyColor": "yellow"
+        },
+        {
+            "type": "custom",
+            "format": "└──────────────────────────────────────────────────────┘",
+            "outputColor": "yellow"
+        },
+        {
+            "type": "custom",
+            "format": "┌─────────────────DE─────────────────┐",
+            "outputColor": "blue"
+        },
+        {
+            "type": "de",
+            "key": " DE",
+            "keyColor": "blue"
+        },
+        {
+            "type": "lm",
+            "key": "│ ├󰟵 LM",
+            "keyColor": "blue"
+        },
+        {
+            "type": "wm",
+            "key": "│ ├ WM",
+            "keyColor": "blue"
+        },
+        {
+            "type": "custom",
+            "format": "└────────────────────────────────────┘",
+            "outputColor": "blue"
+        },
+        {
+            "type": "custom",
+            "format": "┌────────────────────────────────────┐",
+            "outputColor": "cyan"
+        },
+        {
+            "type": "command",
+            "key": "│ ├  OS Age",
+            "keyColor": "cyan",
+            "text": "birth_install=$(stat -c %W /); current=$(date +%s); time_progression=$((current - birth_install)); days_difference=$((time_progression / 86400)); echo $days_difference days"
+        },
+        {
+            "type": "uptime",
+            "key": "│ ├  Uptime",
+            "keyColor": "cyan"
+        },
+        {
+            "type": "DateTime",
+            "key": "│ └  Date",
+            "keyColor": "cyan"
+        },
+        {
+            "type": "custom",
+            "format": "└────────────────────────────────────┘",
+            "outputColor": "cyan"
+        },
+        {
+            "type": "custom",
+            "format": " \u001b[90m  \u001b[31m  \u001b[32m  \u001b[33m  \u001b[34m  \u001b[35m  \u001b[36m  \u001b[37m "
+        },
+        "break",
+    ]
+}

@@ -19,13 +19,14 @@
     color: #edf2f4;
 }
 
-#custom-weather,
-#workspaces,
 #custom-fast-fetch,
+#workspaces,
+#custom-weather,
 #window,
 #clock,
 #cpu,
 #memory,
+#custom-nvidia,
 #disk,
 #temperature,
 #language,
@@ -80,5 +81,8 @@ window#waybar {
     font-size: 20px;
 }
 #custom-weather {
+    font-size: 13px;
+}
+#custom-nvidia {
     font-size: 13px;
 }

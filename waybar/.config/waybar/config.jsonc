@@ -31,6 +31,7 @@
   "modules-right": [
     "cpu",
     "memory",
+    "custom/nvidia",
     "disk",
     "temperature",
     "hyprland/language",
@@ -194,5 +195,14 @@
     "format": "{}",
     "tooltip": true,
     "on-click": "kitty --hold curl 'https://wttr.in'",
+    "on-click-right": "start https://wttr.in/",
+  },
+  "custom/nvidia": {
+    "interval": 4,
+    "return-type": "json",
+    "exec": "/home/coruja/dotfiles/scripts/nvidia.sh",
+    "format": "<span size='x-large' rise='-2500'>󰢮</span>{text}",
+    "tooltip": "true",
+    "tooltip-format": "{alt}",
   },
 }
