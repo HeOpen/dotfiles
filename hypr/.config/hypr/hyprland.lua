@@ -272,10 +272,7 @@ hl.bind(mainMod .. " + ESCAPE", hl.dsp.exec_cmd("killall waybar || waybar"))
 -- Screenshot
 hl.bind(mainMod .. " + SHIFT + S",
     hl.dsp.exec_cmd("grim -g \"$(slurp)\" /tmp/screenshot.png && swappy -f /tmp/screenshot.png"))
-
-hl.bind(mainMod .. " + SHIFT + W",
-    hl.dsp.exec_cmd("wal --theme ~/.cache/wal/colors.json && killall -SIGUSR2 waybar && makoctl reload"))
-
+-- Custom wallpaper manager
 hl.bind(mainMod .. " + W",
     hl.dsp.exec_cmd("kitty ~/.local/bin/change_wallpaper.sh"))
 
