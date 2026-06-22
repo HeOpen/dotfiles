@@ -16,7 +16,7 @@
     /*Font for the icons*/
     font-family: JetBrainsMono Nerd Font;
     font-size: 12px;
-    color: #edf2f4;
+    color: @foreground;
 }
 
 #custom-fast-fetch,
@@ -35,7 +35,8 @@
 #battery,
 #bluetooth,
 #backlight,
-#custom-power {
+#custom-power,
+#mpris {
     padding: 0 5px;
     margin: 0 0px;
     border-bottom: 1px solid transparent;
@@ -45,7 +46,7 @@
 
 /*Font color*/
 window#waybar {
-    background: alpha(@background, 0.8);
+    background: alpha(@background, 0.9);
     color: @foreground;
     border-radius: 10 10px 10px 10;
 }
@@ -66,6 +67,11 @@ window#waybar {
 #workspaces button:hover {
     background: alpha(@color4, 0.9);
 }
+#workspaces button.active {
+    background: alpha(@color2, 0.9);
+    border-radius: 5px;
+    color: @foreground;
+}
 
 /*Modules*/
 /*Module colors*/
@@ -85,4 +91,7 @@ window#waybar {
 }
 #custom-nvidia {
     font-size: 13px;
+}
+#custom-notification {
+    font-size: 17px;
 }

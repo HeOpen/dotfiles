@@ -39,7 +39,8 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("waybar")
     hl.exec_cmd("vicinae server")
     hl.exec_cmd("awww-daemon")
-    hl.exec_cmd("mako")
+    hl.exec_cmd("swaync")
+    hl.exec_cmd("env LC_TIME=ru_RU.UTF-8 waybar")
 end)
 
 -------------------------------
@@ -138,6 +139,14 @@ hl.config({
 
     animations = {
         enabled = true,
+    },
+    workspace = {
+        "1, monitor:HDMI-A-1",
+        "3, monitor:HDMI-A-1",
+        "5, monitor:HDMI-A-1",
+        "2, monitor:eDP-1",
+        "4, monitor:eDP-1",
+        "6, monitor:eDP-1"
     },
 })
 
@@ -275,6 +284,7 @@ hl.bind(mainMod .. " + SHIFT + S",
 -- Custom wallpaper manager
 hl.bind(mainMod .. " + W",
     hl.dsp.exec_cmd("kitty ~/.local/bin/change_wallpaper.sh"))
+hl.bind(mainMod .. " + P", hl.dsp.exec_cmd("nwg-displays"))
 
 -------------------------
 ----  DEFAULT BINDS  ----

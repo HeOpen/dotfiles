@@ -24,11 +24,16 @@
   "modules-left": [
     "custom/fast-fetch",
     "hyprland/workspaces",
+    "custom/separator",
     "custom/weather",
+    "custom/separator",
     "hyprland/window",
+    "custom/notification",
   ],
   "modules-center": ["clock"],
   "modules-right": [
+    "mpris",
+    "custom/separator",
     "cpu",
     "memory",
     "custom/nvidia",
@@ -46,6 +51,7 @@
 
   //Clock and calendar
   "clock": {
+    "locale": "ru_RU.UTF-8",
     "format": "{:%A %R\n  %d.%m.%Y}",
     "tooltip-format": "<tt><small>{calendar}</small></tt>",
     "calendar": {
@@ -143,7 +149,7 @@
   "hyprland/workspaces": {
     "format": "{icon}",
     "format-icons": {
-      "active": "",
+      "active": " ",
       "default": " ",
       "empty": "",
     },
@@ -195,7 +201,7 @@
     "format": "{}",
     "tooltip": true,
     "on-click": "kitty --hold curl 'https://wttr.in'",
-    "on-click-right": "start https://wttr.in/",
+    "on-click-right": "xdg-open https://wttr.in/",
   },
   "custom/nvidia": {
     "interval": 4,
@@ -204,5 +210,47 @@
     "format": "<span size='x-large' rise='-2500'>󰢮</span>{text}",
     "tooltip": "true",
     "tooltip-format": "{alt}",
+  },
+  "mpris": {
+    "format": "   {player_icon}  {status_icon} <i>{title} - {artist}</i>",
+    "player": "playerctld",
+    "max-length": 100,
+    "on-click": "playerctl previous",
+    "on-click-middle": "playerctl play-pause",
+    "on-click-right": "playerctl next",
+    "format-paused": "   {player_icon} {status_icon} {artist} - {title}",
+    "player-icons": {
+      "default": "",
+      "spotify": " ",
+      "mpv": " ",
+    },
+    "status-icons": {
+      "paused": "⏸",
+      "playing": "▶",
+    },
+  },
+  "custom/separator": {
+    "format": " | ",
+    "tooltip": false,
+  },
+  "custom/notification": {
+    "tooltip": false,
+    "format": "{icon}",
+    "format-icons": {
+      "notification": "󰂚 <span foreground='red'><sup></sup></span>",
+      "none": "󰂚 ",
+      "dnd-notification": "󰂛 <span foreground='red'><sup></sup></span>",
+      "dnd-none": "󰂛 ",
+      "inhibited-notification": "󰂚 <span foreground='red'><sup></sup></span>",
+      "inhibited-none": "󰂚 ",
+      "dnd-inhibited-notification": "󰂛 <span foreground='red'><sup></sup></span>",
+      "dnd-inhibited-none": "󰂛 ",
+    },
+    "return-type": "json",
+    "exec-if": "which swaync-client",
+    "exec": "swaync-client -swb",
+    "on-click": "swaync-client -t -sw",
+    "on-click-right": "swaync-client -d -sw",
+    "escape": true,
   },
 }
