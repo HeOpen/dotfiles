@@ -40,7 +40,6 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("vicinae server")
     hl.exec_cmd("awww-daemon")
     hl.exec_cmd("swaync")
-    hl.exec_cmd("env LC_TIME=ru_RU.UTF-8 waybar")
 end)
 
 -------------------------------

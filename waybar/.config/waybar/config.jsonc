@@ -225,8 +225,8 @@
       "mpv": " ",
     },
     "status-icons": {
-      "paused": "⏸",
-      "playing": "▶",
+      "paused": " ",
+      "playing": "",
     },
   },
   "custom/separator": {
