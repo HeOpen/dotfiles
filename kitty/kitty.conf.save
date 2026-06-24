@@ -1,0 +1,11 @@
+allow_remote_control yes
+listen_on unix:@mykitty
+font_size 14.0
+font_family JetBrainsMono Nerd Font
+background_opacity 0.7
+
+
+# BEGIN_KITTY_THEME
+# Cherry Midnight
+include ~/.cache/wal/colors-kitty.conf
+# END_KITTY_THEME

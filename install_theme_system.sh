@@ -60,12 +60,17 @@ ln -sf ~/.cache/wal/btop.theme ~/.config/btop/themes/pywal.theme
 
 # 5. Inyección de configuraciones de forma segura (Idempotencia)
 echo "-> Enlazando archivos de configuración de las aplicaciones..."
-
-# Configuración de Kitty
-touch ~/.config/kitty/kitty.conf
-if ! grep -q "colors-kitty.conf" ~/.config/kitty/kitty.conf; then
-    echo "include ~/.cache/wal/colors-kitty.conf" >> ~/.config/kitty/kitty.conf
-    echo "   [Kitty] Inyección de variables completada."
+# Configuración de Kitty via Symlink Nativo
+echo "-> Configurando Kitty desde los dotfiles..."
+if [ -d "$HOME/dotfiles/kitty" ]; then
+    # Eliminar configuración predeterminada limpia si existiera
+    rm -rf ~/.config/kitty
+    
+    # Crear el enlace simbólico directo al repositorio
+    ln -sf ~/dotfiles/kitty ~/.config/kitty
+    echo "   [Kitty] Enlace simbólico creado correctamente."
+else
+    echo "   [Error] No se encontró la carpeta kitty dentro de ~/dotfiles/"
 fi
 
 # Configuración de Waybar (Asumiendo ruta estándar del sistema)
