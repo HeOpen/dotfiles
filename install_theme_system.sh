@@ -8,9 +8,31 @@ fi
 
 echo "=== Iniciando instalación del sistema de paleta dinámica ==="
 
-# 1. Instalación de dependencias del sistema de forma desatendida
-echo "-> Instalando paquetes necesarios mediante pacman..."
-sudo pacman -S --needed --noconfirm fzf python-pywal mako imagemagick awww libnotify
+# 1. Instalación de dependencias del entorno gráfico (Hardware Agnostic)
+echo "-> Instalando paquetes de la interfaz y utilidades..."
+
+CORE_PKGS=(
+    # Wayland & Hyprland
+    hyprland hyprlock qt6-wayland ly polkit-kde-agent
+    
+    # UI Components
+    waybar swaync wlogout nwg-displays
+    
+    # Terminal & Theming
+    kitty python-pywal awww imagemagick swappy
+    
+    # CLI Utilities & Scripting
+    btop fastfetch yazi stow fzf jq playerctl
+    
+    # System Controls
+    brightnessctl pavucontrol blueman bluez-utils network-manager-applet
+    
+    # Fonts
+    noto-fonts-cjk noto-fonts-emoji
+)
+
+# Ejecutar instalación desatendida
+sudo pacman -S --needed --noconfirm "${CORE_PKGS[@]}"
 
 # 2. Creación de la estructura de directorios requerida
 echo "-> Creando infraestructura de directorios..."
@@ -95,4 +117,13 @@ if [ -f "$HOME/dotfiles/.bashrc" ]; then
     echo "   [Bash] Enlace simbólico de .bashrc creado correctamente."
 else
     echo "   [Error] No se encontró el archivo .bashrc en ~/dotfiles/"
+fi
+
+# Configuración de asociaciones predeterminadas (MIME)
+echo "-> Configurando aplicaciones predeterminadas..."
+if [ -f "$HOME/dotfiles/mimeapps.list" ]; then
+    ln -sf ~/dotfiles/mimeapps.list ~/.config/mimeapps.list
+    echo "   [MIME] Enlace simbólico de mimeapps.list creado correctamente."
+else
+    echo "   [Error] No se encontró mimeapps.list en ~/dotfiles/"
 fi
