@@ -86,3 +86,13 @@ fi
 
 echo "=== Instalación completada con éxito ==="
 echo "Asegúrate de tener imágenes en ~/Pictures/wallpaper/ y ejecuta 'cambiar_fondo.sh' para inicializar la paleta."
+
+# Configuración de Bash via Symlink
+echo "-> Configurando Bash desde los dotfiles..."
+if [ -f "$HOME/dotfiles/.bashrc" ]; then
+    # Forzar la creación del enlace, sobrescribiendo el archivo por defecto del SO
+    ln -sf ~/dotfiles/.bashrc ~/.bashrc
+    echo "   [Bash] Enlace simbólico de .bashrc creado correctamente."
+else
+    echo "   [Error] No se encontró el archivo .bashrc en ~/dotfiles/"
+fi
