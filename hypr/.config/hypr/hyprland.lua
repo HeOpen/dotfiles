@@ -15,9 +15,9 @@
 
 -- See https://wiki.hypr.land/Configuring/Basics/Monitors/
 -- hyprctl monitors all
--- hl.monitor({ output = "DP-1", mode = "1920x1080", position = "0x0", scale = 1 })
 hl.monitor({ output = "eDP-1", mode = "1920x1080@144", position = "auto", scale = 1 })
 hl.monitor({ output = "HDMI-A-1", mode = "2560x1440@144", position = "auto", scale = 1.25 })
+--hl.monitor({ output = "eDP-1", mode = "1920x1080@60", position = "0x0", scale = 1 })
 
 ---------------------
 ---- MY PROGRAMS ----
@@ -40,7 +40,7 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("vicinae server")
     hl.exec_cmd("awww-daemon")
     hl.exec_cmd("swaync")
-    hl.exec_cmd("env LC_TIME=ru_RU.UTF-8")
+    hl.exec_cmd("env LC_TIME=ru_RU.UTF-8 ")
 end)
 
 -------------------------------
@@ -54,17 +54,23 @@ hl.env("HYPRCURSOR_SIZE", "24")
 hl.env("XDG_CURRENT_DESKTOP", "Hyprland")
 hl.env("XDG_SESSION_TYPE", "wayland")
 hl.env("XDG_SESSION_DESKTOP", "Hyprland")
-hl.env("GBM_BACKEND", "nvidia-drm")
-hl.env("__GLX_VENDOR_LIBRARY_NAME", "nvidia")
-hl.env("LIBVA_DRIVER_NAME", "nvidia")
-hl.env("systemctl --user import-environment", "WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
-hl.env("dbus-update-activation-environment --systemd", "WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
+hl.env("XDG_MENU_PREFIX", "arch-")
 hl.env("GDK_BACKEND", "wayland,x11,*")
 hl.env("QT_QPA_PLATFORM", "wayland;xcb")
 hl.env("QT_WAYLAND_DISABLE_WINDOWDECORATION", "1")
 hl.env("ELECTRON_OZONE_PLATFORM_HINT", "auto")
 hl.env("SDL_VIDEODRIVER", "wayland")
-hl.env("XDG_MENU_PREFIX", "arch-")
+hl.env("LIBVA_DRIVER_NAME", "radeonsi")
+
+----- Systemd and dbus
+hl.env("systemctl --user import-environment", "WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
+hl.env("dbus-update-activation-environment --systemd", "WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
+
+
+----- DISABLE THE FOLLOWING IF USING AMD -----
+hl.env("GBM_BACKEND", "nvidia-drm")
+hl.env("__GLX_VENDOR_LIBRARY_NAME", "nvidia")
+hl.env("LIBVA_DRIVER_NAME", "nvidia")
 
 -----------------------
 ----- PERMISSIONS -----
