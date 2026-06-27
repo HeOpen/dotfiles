@@ -1,10 +1,13 @@
-# dotfiles
+# Wallpapers palette applied with Pywall
 ![blue](https://raw.githubusercontent.com/HeOpen/dotfiles/refs/heads/main/screenshots/blue_palette.png)
 ![green](https://raw.githubusercontent.com/HeOpen/dotfiles/refs/heads/main/screenshots/green_palette.png)
 ![red](https://raw.githubusercontent.com/HeOpen/dotfiles/refs/heads/main/screenshots/red_palette.png)
+# Wallpaper selector script
+![wallpaperselector](https://github.com/HeOpen/dotfiles/blob/main/screenshots/wallpaper_selector.png?raw=true)
+# Waybar
+![waybar](https://github.com/HeOpen/dotfiles/blob/main/screenshots/waybar.png?raw=true)
 
 # Project Echo: Dynamic Hyprland Setup
-
 ## Overview
 This repository contains the configuration files (dotfiles) for a highly optimized, dynamic desktop environment built on Wayland. The core philosophy of this "rice" is the KISS (Keep It Simple, Stupid) principle: replacing monolithic applications with focused, single-purpose CLI tools that communicate efficiently. 
 
