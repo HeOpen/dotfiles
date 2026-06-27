@@ -40,6 +40,7 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("vicinae server")
     hl.exec_cmd("awww-daemon")
     hl.exec_cmd("swaync")
+    hl.exec_cmd("env LC_TIME=ru_RU.UTF-8")
 end)
 
 -------------------------------
@@ -63,6 +64,7 @@ hl.env("QT_QPA_PLATFORM", "wayland;xcb")
 hl.env("QT_WAYLAND_DISABLE_WINDOWDECORATION", "1")
 hl.env("ELECTRON_OZONE_PLATFORM_HINT", "auto")
 hl.env("SDL_VIDEODRIVER", "wayland")
+hl.env("XDG_MENU_PREFIX", "arch-")
 
 -----------------------
 ----- PERMISSIONS -----
@@ -118,7 +120,7 @@ hl.config({
         rounding_power   = 50,
 
         -- Change transparency of focused and unfocused windows
-        active_opacity   = 0.90,
+        active_opacity   = 0.95,
         inactive_opacity = 0.75,
 
         shadow           = {
@@ -284,13 +286,13 @@ hl.bind(mainMod .. " + SHIFT + S",
 hl.bind(mainMod .. " + W",
     hl.dsp.exec_cmd("kitty ~/.local/bin/change_wallpaper.sh"))
 hl.bind(mainMod .. " + P", hl.dsp.exec_cmd("nwg-displays"))
-
+hl.bind("SUPER + F", hl.dsp.window.fullscreen({ action = "toggle" }))
 -------------------------
 ----  DEFAULT BINDS  ----
 -------------------------
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
 hl.bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" }))
-hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
+-- hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit")) -- dwindle only
 -- closeWindowBind:set_enabled(false)
 hl.bind(mainMod .. " + M",
