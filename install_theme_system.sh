@@ -8,56 +8,34 @@ fi
 
 echo "=== Iniciando instalación del sistema de paleta dinámica ==="
 
-# 1. Instalación de dependencias del entorno gráfico (Hardware Agnostic)
-echo "-> Instalando paquetes de la interfaz y utilidades..."
+# 1. Instalación de dependencias del sistema (Perfil unificado)
+echo "-> Instalando paquetes desde la lista oficial..."
 
-# Define la ruta a tu lista de paquetes
-PKG_LIST="pkglist.txt"
+# Apuntar directamente a la ruta estandarizada en los dotfiles
+PKG_LIST="$HOME/dotfiles/pkglist.txt"
 
-echo "-> Iniciando la instalación masiva de paquetes para AMD T495..."
-
-# Verificar si el archivo existe
 if [ ! -f "$PKG_LIST" ]; then
-    echo "   [Error] No se encontró el archivo $PKG_LIST."
+    echo "   [Error] No se encontró el archivo de paquetes en $PKG_LIST. Abortando."
     exit 1
 fi
 
-# Actualizar repositorios e instalar paquetes
-# `--needed`: Evita reinstalar paquetes que ya están en el sistema
-sudo pacman -Syu --needed - < "$PKG_LIST"
+# Actualizar repositorios e instalar paquetes de forma masiva
+# -Syu: Sincroniza y actualiza el sistema.
+# --needed: Omite paquetes ya instalados.
+# --noconfirm: Modo desatendido.
+# - < "$PKG_LIST": Inyecta la lista de texto como entrada estándar.
+sudo pacman -Syu --needed --noconfirm - < "$PKG_LIST"
 
-echo "-> Instalación de repositorios oficiales completada."
-
-CORE_PKGS=(
-    # Wayland & Hyprland
-    hyprland hyprlock qt6-wayland ly polkit-kde-agent
-
-    # UI Components
-    waybar swaync wlogout nwg-displays
-
-    # Terminal & Theming
-    kitty python-pywal awww imagemagick swappy
-
-    # CLI Utilities & Scripting
-    btop fastfetch yazi stow fzf jq playerctl
-
-    # System Controls
-    brightnessctl pavucontrol blueman bluez-utils network-manager-applet
-
-    # Fonts
-    noto-fonts-cjk noto-fonts-emoji
-)
-
-# Ejecutar instalación desatendida
-sudo pacman -S --needed --noconfirm "${CORE_PKGS[@]}"
+echo "-> Instalación de paquetes completada."
 
 # 2. Creación de la estructura de directorios requerida
 echo "-> Creando infraestructura de directorios..."
-mkdir -p ~/.local/bin ~/.config/wal/templates ~/.config/btop/themes ~/.config/kitty ~/.config/mako
+# Se elimina .config/mako y se añade .config/swaync
+mkdir -p ~/.local/bin ~/.config/wal/templates ~/.config/btop/themes ~/.config/kitty ~/.config/swaync ~/.config/waybar
 
 # 3. Despliegue del script selector de fondos
 echo "-> Generando script de cambio de fondo..."
-cat << 'EOF' > ~/.local/bin/cambiar_fondo.sh
+cat << 'EOF' > ~/.local/bin/change_wallpaper.sh
 #!/bin/bash
 DIR="$HOME/Pictures/wallpaper/"
 WALLPAPER=$(find "$DIR" -type f | fzf --prompt="Selecciona fondo: " --preview="kitty +kitten icat --clear --transfer-mode=memory --stdin=no --place=\${FZF_PREVIEW_COLUMNS}x\${FZF_PREVIEW_LINES}@0x0 {}" --preview-window="right:60%")
@@ -67,16 +45,25 @@ if [ -z "$WALLPAPER" ]; then
 fi
 
 awww img "$WALLPAPER" --transition-type wipe
-wal -q -t -i "$WALLPAPER" 2>/dev/null
+
+# Generar paleta (eliminado 2>/dev/null para auditoría de errores)
+wal -q -t -i "$WALLPAPER"
 source ~/.cache/wal/colors.sh
 
-hyprctl keyword general:col.active_border "$color2 $color4 45deg"
-hyprctl keyword general:col.inactive_border "$background"
+# Formatear colores para el analizador moderno de Hyprland
+# Se extrae el símbolo '#' utilizando la sintaxis de Bash ${variable:1}
+C2="rgb(${color2:1})"
+C4="rgb(${color4:1})"
+CBG="rgb(${background:1})"
+
+hyprctl keyword general:col.active_border "$C2 $C4 45deg"
+hyprctl keyword general:col.inactive_border "$CBG"
+
 killall -SIGUSR2 waybar
-makoctl reload
+swaync-client -rs
 EOF
 
-chmod +x ~/.local/bin/cambiar_fondo.sh
+chmod +x ~/.local/bin/change_wallpaper.sh
 
 # 4. Despliegue de la plantilla de Btop
 echo "-> Generando plantilla de color para Btop..."
@@ -99,20 +86,18 @@ ln -sf ~/.cache/wal/btop.theme ~/.config/btop/themes/pywal.theme
 
 # 5. Inyección de configuraciones de forma segura (Idempotencia)
 echo "-> Enlazando archivos de configuración de las aplicaciones..."
+
 # Configuración de Kitty via Symlink Nativo
 echo "-> Configurando Kitty desde los dotfiles..."
 if [ -d "$HOME/dotfiles/kitty" ]; then
-    # Eliminar configuración predeterminada limpia si existiera
     rm -rf ~/.config/kitty
-
-    # Crear el enlace simbólico directo al repositorio
     ln -sf ~/dotfiles/kitty ~/.config/kitty
     echo "   [Kitty] Enlace simbólico creado correctamente."
 else
     echo "   [Error] No se encontró la carpeta kitty dentro de ~/dotfiles/"
 fi
 
-# Configuración de Waybar (Asumiendo ruta estándar del sistema)
+# Configuración de Waybar
 WAYBAR_CSS="$HOME/.config/waybar/style.css"
 if [ -f "$WAYBAR_CSS" ]; then
     if ! grep -q "colors-waybar.css" "$WAYBAR_CSS"; then
@@ -123,13 +108,9 @@ else
     echo "   [Aviso] No se encontró style.css de Waybar. Recuerda añadir el @import manualmente si usas otra ruta."
 fi
 
-echo "=== Instalación completada con éxito ==="
-echo "Asegúrate de tener imágenes en ~/Pictures/wallpaper/ y ejecuta 'cambiar_fondo.sh' para inicializar la paleta."
-
 # Configuración de Bash via Symlink
 echo "-> Configurando Bash desde los dotfiles..."
 if [ -f "$HOME/dotfiles/.bashrc" ]; then
-    # Forzar la creación del enlace, sobrescribiendo el archivo por defecto del SO
     ln -sf ~/dotfiles/.bashrc ~/.bashrc
     echo "   [Bash] Enlace simbólico de .bashrc creado correctamente."
 else
@@ -144,3 +125,6 @@ if [ -f "$HOME/dotfiles/mimeapps.list" ]; then
 else
     echo "   [Error] No se encontró mimeapps.list en ~/dotfiles/"
 fi
+
+echo "=== Instalación completada con éxito ==="
+echo "Asegúrate de tener imágenes en ~/Pictures/wallpaper/ y ejecuta 'change_wallpaper.sh' para inicializar la paleta."
