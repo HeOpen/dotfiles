@@ -11,22 +11,39 @@ echo "=== Iniciando instalación del sistema de paleta dinámica ==="
 # 1. Instalación de dependencias del entorno gráfico (Hardware Agnostic)
 echo "-> Instalando paquetes de la interfaz y utilidades..."
 
+# Define la ruta a tu lista de paquetes
+PKG_LIST="pkglist.txt"
+
+echo "-> Iniciando la instalación masiva de paquetes para AMD T495..."
+
+# Verificar si el archivo existe
+if [ ! -f "$PKG_LIST" ]; then
+    echo "   [Error] No se encontró el archivo $PKG_LIST."
+    exit 1
+fi
+
+# Actualizar repositorios e instalar paquetes
+# `--needed`: Evita reinstalar paquetes que ya están en el sistema
+sudo pacman -Syu --needed - < "$PKG_LIST"
+
+echo "-> Instalación de repositorios oficiales completada."
+
 CORE_PKGS=(
     # Wayland & Hyprland
     hyprland hyprlock qt6-wayland ly polkit-kde-agent
-    
+
     # UI Components
     waybar swaync wlogout nwg-displays
-    
+
     # Terminal & Theming
     kitty python-pywal awww imagemagick swappy
-    
+
     # CLI Utilities & Scripting
     btop fastfetch yazi stow fzf jq playerctl
-    
+
     # System Controls
     brightnessctl pavucontrol blueman bluez-utils network-manager-applet
-    
+
     # Fonts
     noto-fonts-cjk noto-fonts-emoji
 )
@@ -87,7 +104,7 @@ echo "-> Configurando Kitty desde los dotfiles..."
 if [ -d "$HOME/dotfiles/kitty" ]; then
     # Eliminar configuración predeterminada limpia si existiera
     rm -rf ~/.config/kitty
-    
+
     # Crear el enlace simbólico directo al repositorio
     ln -sf ~/dotfiles/kitty ~/.config/kitty
     echo "   [Kitty] Enlace simbólico creado correctamente."
